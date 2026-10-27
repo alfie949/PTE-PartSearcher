@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+  <meta charset="UTF-8">
+  <title>BOM Search Helper</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <h1>😈 BOM Search Helper</h1>
+
+  <input type="text" id="searchInput" placeholder="Enter MPN" autocomplete="off" />
+  <button id="searchButton">🔎 Search</button>
+  <div id="status" class="status"></div>
+
+  <div class="section-head">
+    <h2>🔗 Suppliers</h2>
+    <div class="bulk">
+      <button type="button" class="link-btn" id="enableAll">All</button>
+      <span class="divider">|</span>
+      <button type="button" class="link-btn" id="disableAll">None</button>
+      <span class="divider">|</span>
+      <button type="button" class="link-btn" id="resetDefaults" title="Restore the built-in supplier list">Reset</button>
+    </div>
+  </div>
+
+  <ul id="siteList"></ul>
+  <p id="emptyState" class="empty" hidden>No suppliers yet — add one below.</p>
+
+  <h2>➕ Add a supplier</h2>
+  <input type="text" id="newSiteInput" placeholder="https://example.com/search?q=" autocomplete="off" />
+  <button id="addSiteButton">Add site</button>
+  <p class="hint">Paste the search URL up to and including the <code>=</code>. The MPN gets appended on the end.</p>
+
+  <script src="sites.js"></script>
+  <script src="popup.js"></script>
+</body>
+</html>
