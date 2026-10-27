@@ -1,4 +1,4 @@
-BOM Clean Search v1.4
+BOM Clean Search v1.5
 =====================
 
 PURPOSE
@@ -38,10 +38,31 @@ That is 8 tabs per BOM line and roughly 4 seconds before the last one opens
 aggregators as your default sweep and switching the named distributors on only
 when a line actually turns awkward.
 
+NEW IN v1.5 - DIGI-KEY IMAGES
+Digi-Key product images were failing to load while the extension was on.
+Cause: the highlighter wrapped each match in a <mark> by cutting up the page's
+text. Digi-Key's site is built with React, which keeps hold of its own text
+and expects to find it where it left it. When React next updated the page
+(e.g. swapping a placeholder for the product image) it could not find that
+text, threw an error and stopped - so the images never appeared.
+
+The highlighter now uses the browser's CSS Custom Highlight API. It tells
+Chrome which bits of text to colour and changes nothing in the page itself, so
+React sites are left exactly as they built themselves. It also re-checks the
+page when results load in late, so matches on React sites still get coloured.
+
+Also fixed: switching suppliers on/off could occasionally leave the
+highlighter registered on no sites at all, and a supplier added by IP address
+stopped the highlighter working everywhere.
+
 CARRIED OVER FROM v1.2
 - Tabs open one at a time rather than all at once
 - Highlighter only injects on your enabled supplier domains, not <all_urls>
 - Highlighter bails out on bot-check / challenge pages
+
+UPGRADING FROM v1.4
+Replace the folder contents, then hit the reload arrow on the extension card in
+chrome://extensions. Your supplier list and toggles are kept.
 
 INSTALLING (unpacked)
 1. Unzip somewhere permanent

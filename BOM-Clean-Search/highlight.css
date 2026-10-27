@@ -1,0 +1,6 @@
+/* Paints search-term matches. Injected by background.js with content.js.
+   Uses ::highlight() so the page's own markup is never touched. */
+::highlight(bom-clean-search) {
+  background-color: #ffeb3b;
+  color: #000;
+}

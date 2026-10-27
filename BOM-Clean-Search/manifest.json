@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
   "name": "BOM Clean Search",
-  "version": "1.4",
+  "version": "1.5",
   "description": "Search your chosen distributors at once from one MPN box, and highlight the term on each page.",
   "permissions": ["tabs", "scripting", "storage"],
   "host_permissions": ["<all_urls>"],

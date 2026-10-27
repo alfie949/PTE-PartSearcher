@@ -12,8 +12,19 @@ const HIGHLIGHTER_ID = 'bom-highlighter';
 //
 // We now register it dynamically for the supplier domains only, and re-register
 // whenever the site list changes.
+//
+// Calls are queued so they run one after another. On install, onInstalled and
+// storage.onChanged both fire at once; run in parallel, they could each clear
+// the other's registration and leave the highlighter registered nowhere.
 // ---------------------------------------------------------------------------
-async function syncHighlighterRegistration() {
+let syncQueue = Promise.resolve();
+
+function syncHighlighterRegistration() {
+  syncQueue = syncQueue.then(doSyncHighlighterRegistration, doSyncHighlighterRegistration);
+  return syncQueue;
+}
+
+async function doSyncHighlighterRegistration() {
   const sites = await new Promise(resolve => getSites(resolve));
 
   const matches = [...new Set(
@@ -37,6 +48,7 @@ async function syncHighlighterRegistration() {
       id: HIGHLIGHTER_ID,
       matches,
       js: ['content.js'],
+      css: ['highlight.css'],
       runAt: 'document_idle',
       allFrames: false,
       persistAcrossSessions: true

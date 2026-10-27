@@ -97,6 +97,12 @@ function matchPatternsFor(url) {
     return [];
   }
 
+  // IP addresses and localhost get no www. variant - Chrome rejects
+  // "www.127.0.0.1" as a host, and one bad pattern fails the whole registration.
+  if (/^[\d.]+$/.test(host) || host.startsWith('[') || !host.includes('.')) {
+    return [`*://${host}/*`];
+  }
+
   const bare = host.replace(/^www\./, '');
   return [...new Set([host, bare, `www.${bare}`])].map(h => `*://${h}/*`);
 }
